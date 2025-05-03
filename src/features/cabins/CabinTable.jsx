@@ -29,15 +29,16 @@ const TableHeader = styled.header`
 `;
 
 function CabinTable() {
-  // populate table here
-  // using react query useQuery custom hook
+  const {
+    isLoading,
+    data: cabins,
+    error,
+  } = useQuery({
+    queryKey: ["cabins"],
+    queryFn: getCabins,
+  });
 
-  const { isLoading, data: cabins, error } = useQuery({
-    queryKey: ['cabin'],
-    queryFn: getCabins
-  })
-
-  if (isLoading) return <Spinner />
+  if (isLoading) return <Spinner />;
 
   return (
     <Table role="table">
@@ -49,9 +50,11 @@ function CabinTable() {
         <div>Discount</div>
         <div></div>
       </TableHeader>
-      {cabins.map(cabin => <CabinRow cabin={cabin} key={cabin.id} />)}
+      {cabins.map((cabin) => (
+        <CabinRow cabin={cabin} key={cabin.id} />
+      ))}
     </Table>
-  )
+  );
 }
 
-export default CabinTable
+export default CabinTable;

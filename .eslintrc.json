@@ -1,17 +1,15 @@
 {
-    "extends": "react-app",
-    "overrides": [
-        {
-            "files": [
-                "src/**/*.js"
-            ],
-            "env": {
-                "development": true
-            },
-            "rules": {
-                "no-unused-vars": "off",
-                "react/prop-types": "off"
-            }
-        }
-    ]
+  "extends": "react-app",
+  "overrides": [
+    {
+      "files": ["src/**/*.js"],
+      "env": {
+        "development": true
+      },
+      "rules": {
+        "no-unused-vars": "off",
+        "react/prop-types": "off"
+      }
+    }
+  ]
 }

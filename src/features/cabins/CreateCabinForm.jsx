@@ -1,61 +1,50 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { Button } from "antd";
+import { useForm } from "react-hook-form";
+import { createEditCabin } from "../../services/apiCabins";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
-// import Button from "../../ui/Button";
-import { Button } from "antd";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 
-import { useForm } from "react-hook-form";
-import { createEditCabin } from "../../services/apiCabins";
-function CreateCabinForm({ cabinToEdit = {} }) {
+import useCreateCabin from './useCreateCabin.js'
+import useEditCabin from './useEditCabin.js'
+
+function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
+
+  const { createCabin, isCreating } = useCreateCabin();
+  const { editCabin, isEditing } = useEditCabin();
+
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
-  // form
   const { register, handleSubmit, reset, formState, getValues } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
 
-  // react-query queryClient & mutation
-  const queryClient = useQueryClient();
-  const { mutate: createCabin, isLoading: isCreating } = useMutation({
-    mutationFn: createEditCabin,
-    onSuccess: () => {
-      toast.success("New cabin successfully created");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      reset();
-    },
-    onError: (error) => toast.error(error.message),
-  });
-
-  const { mutate: editCabin, isLoading: isEditing } = useMutation({
-    mutationFn: ({ newCabinDate, id }) => createEditCabin(newCabinDate, id),
-    onSuccess: () => {
-      toast.success("New cabin successfully Edited");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      reset();
-    },
-    onError: (error) => toast.error(error.message),
-  });
-
   const isWorking = Boolean(isCreating || isEditing);
+
 
   function onSubmit(data) {
     // console.log(data);
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditSession)
-      editCabin({ newCabinDate: { ...data, image }, id: editId });
-    else createCabin({ ...data, image: image });
+      editCabin({ newCabinDate: { ...data, image }, id: editId }, {
+        onSuccess: (data) => reset()
+      });
+
+    else createCabin({ ...data, image: image }, {
+      onSuccess: (data) => { // the created data from the mutation function.
+        // console.log(data, 'after creating');
+        reset();
+        setShowForm(false);
+      }
+    });
   }
 
   return (

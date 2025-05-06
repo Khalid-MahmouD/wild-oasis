@@ -29,6 +29,7 @@ function CreateCabinForm() {
   function onSubmit(data) {
     // data that validate and successfully done
     mutate({ ...data, image: data.image[0] });
+    // close AddNewCabin 
     // console.log({ ...data, image: data.image[0] });
   }
   function onError(data) {

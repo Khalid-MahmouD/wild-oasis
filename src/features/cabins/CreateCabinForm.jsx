@@ -10,11 +10,10 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 
-import useCreateCabin from './useCreateCabin.js'
-import useEditCabin from './useEditCabin.js'
+import useCreateCabin from "./useCreateCabin.js";
+import useEditCabin from "./useEditCabin.js";
 
-function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
-
+function CreateCabinForm({ cabinToEdit = {}, setShowForm, setShowEdit }) {
   const { createCabin, isCreating } = useCreateCabin();
   const { editCabin, isEditing } = useEditCabin();
 
@@ -28,23 +27,30 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm }) {
 
   const isWorking = Boolean(isCreating || isEditing);
 
-
   function onSubmit(data) {
-    // console.log(data);
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditSession)
-      editCabin({ newCabinDate: { ...data, image }, id: editId }, {
-        onSuccess: (data) => reset()
-      });
-
-    else createCabin({ ...data, image: image }, {
-      onSuccess: (data) => { // the created data from the mutation function.
-        // console.log(data, 'after creating');
-        reset();
-        setShowForm(false);
-      }
-    });
+      editCabin(
+        { newCabinDate: { ...data, image }, id: editId },
+        {
+          onSuccess: () => {
+            setShowEdit(false);
+          },
+        },
+      );
+    else
+      createCabin(
+        { ...data, image: image },
+        {
+          onSuccess: (data) => {
+            // the created data from the mutation function.
+            // console.log(data, 'after creating');
+            reset();
+            setShowForm(false);
+          },
+        },
+      );
   }
 
   return (

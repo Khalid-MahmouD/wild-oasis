@@ -38,7 +38,7 @@ function App() {
             <Route path="account" element={<Account />} />
           </Route>
           <Route path="login" element={<Login />} />
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<Navigate replace to="/dashboard" />} />
         </Routes>
       </BrowserRouter>
       <Toaster

@@ -99,9 +99,7 @@ function CabinRow({ cabin }) {
           </Button>
         </Action>
       </TableRow>
-      {showEdit && (
-        <CreateCabinForm cabinToEdit={cabin} setShowEdit={setShowEdit} />
-      )}
+      {showEdit && <CreateCabinForm />}
     </>
   );
 }

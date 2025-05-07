@@ -13,7 +13,7 @@ import FormRow from "../../ui/FormRow";
 import useCreateCabin from "./useCreateCabin.js";
 import useEditCabin from "./useEditCabin.js";
 
-function CreateCabinForm({ cabinToEdit = {}, setShowForm, setShowEdit }) {
+function CreateCabinForm({ cabinToEdit = {}, onClose }) {
   const { createCabin, isCreating } = useCreateCabin();
   const { editCabin, isEditing } = useEditCabin();
 
@@ -35,7 +35,7 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm, setShowEdit }) {
         { newCabinDate: { ...data, image }, id: editId },
         {
           onSuccess: () => {
-            setShowEdit(false);
+            onClose?.();
           },
         },
       );
@@ -47,14 +47,17 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm, setShowEdit }) {
             // the created data from the mutation function.
             // console.log(data, 'after creating');
             reset();
-            setShowForm(false);
+            onClose?.();
           },
         },
       );
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      type={onClose ? "modal" : "regular"}
+    >
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           disabled={isWorking}
@@ -134,7 +137,12 @@ function CreateCabinForm({ cabinToEdit = {}, setShowForm, setShowEdit }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button type="primary" htmlType="reset" loading={isWorking}>
+        <Button
+          onClick={() => onClose?.()}
+          type="primary"
+          htmlType="reset"
+          loading={isWorking}
+        >
           Cancel
         </Button>
         <Button type="primary" htmlType="submit" loading={isWorking}>

@@ -137,12 +137,7 @@ function CreateCabinForm({ cabinToEdit = {}, onClose }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button
-          onClick={() => onClose?.()}
-          type="primary"
-          htmlType="reset"
-          loading={isWorking}
-        >
+        <Button onClick={() => onClose?.()} type="primary" loading={isWorking}>
           Cancel
         </Button>
         <Button type="primary" htmlType="submit" loading={isWorking}>

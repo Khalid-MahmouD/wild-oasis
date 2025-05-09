@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import styled from "styled-components";
-import { Button as AntdButton } from 'antd'
+import { Button as AntdButton } from "antd";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import { createPortal } from "react-dom";
 import useOutsideClose from "../hooks/useOutsideClose";
@@ -17,7 +17,7 @@ const StyledToggle = styled.button`
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
   transition: all 0.2s;
-  
+
   &:hover {
     background-color: var(--color-grey-100);
   }
@@ -41,7 +41,7 @@ const StyledList = styled.ul`
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
 `;
 
 const StyledButton = styled.button`
@@ -70,34 +70,42 @@ const StyledButton = styled.button`
 
 const MenusContext = createContext();
 function Menus({ children }) {
-  const [openId, setOpenId] = useState('');
-  const [position, setPosition] = useState(null)
-  const close = () => setOpenId('');
-  const open = setOpenId
+  const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState(null);
+  const close = () => setOpenId("");
+  const open = setOpenId;
   return (
-    <MenusContext.Provider value={{ openId, close, open, position, setPosition }} >
+    <MenusContext.Provider
+      value={{ openId, close, open, position, setPosition }}
+    >
       {children}
     </MenusContext.Provider>
-  )
+  );
 }
 
 function Toggle({ id }) {
-  const { openId, close, open, setPosition } = useContext(MenusContext)
+  const { openId, close, open, setPosition } = useContext(MenusContext);
   function handleClick(e) {
-    const rect = e.target.closest('button').getBoundingClientRect();
+    const rect = e.target.closest("button").getBoundingClientRect();
 
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
+    // if (openId !== id || openId === '') open(id);
+    // close();
 
-    openId === '' || openId !== id ? open(id) : close();
-    console.log(`OpenID: ${openId} ID: ${id}`);
+    openId === "" || openId !== id ? open(id) : close();
+    // console.log(`OpenID: ${openId} ID: ${id}`);
   }
-  return <StyledToggle onClick={handleClick}><HiEllipsisVertical /></StyledToggle>
+  return (
+    <StyledToggle onClick={handleClick}>
+      <HiEllipsisVertical />
+    </StyledToggle>
+  );
 }
 function List({ id, children }) {
-  const { openId, position, close } = useContext(MenusContext)
+  const { openId, position, close } = useContext(MenusContext);
   const ref = useOutsideClose(close);
 
   if (openId !== id) return null;
@@ -105,25 +113,27 @@ function List({ id, children }) {
   return createPortal(
     <StyledList position={position} ref={ref}>
       {children}
-    </StyledList >,
-    document.body
-  )
+    </StyledList>,
+    document.body,
+  );
 }
 function Button({ children, icon, onClick }) {
-  const { close } = useContext(MenusContext)
+  const { close } = useContext(MenusContext);
   function handleClick() {
     onClick?.();
     close();
   }
-  return <li>
-    <AntdButton type='text' block onClick={handleClick}>{icon} <span>
-      {children}
-    </span></AntdButton>
-  </li>
+  return (
+    <li>
+      <AntdButton type="text" block onClick={handleClick}>
+        {icon} <span>{children}</span>
+      </AntdButton>
+    </li>
+  );
 }
 
 Menus.Menu = Menu;
 Menus.Toggle = Toggle;
 Menus.List = List;
 Menus.Button = Button;
-export default Menus
+export default Menus;

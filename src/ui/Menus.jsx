@@ -92,11 +92,7 @@ function Toggle({ id }) {
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
-    // if (openId !== id || openId === '') open(id);
-    // close();
-
     openId === "" || openId !== id ? open(id) : close();
-    // console.log(`OpenID: ${openId} ID: ${id}`);
   }
   return (
     <StyledToggle onClick={handleClick}>

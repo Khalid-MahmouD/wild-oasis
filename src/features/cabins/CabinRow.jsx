@@ -97,6 +97,7 @@ function CabinRow({ cabin }) {
         two of them inside a modal
 
         and the two windows outside */}
+
         <Modal>
           <Menus.Menu>
             <Menus.Toggle id={cabinId} />

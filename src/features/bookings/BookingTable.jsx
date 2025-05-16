@@ -18,6 +18,7 @@ function BookingTable() {
   // const [field, direction] = sortBy.split("-");
   // const modifier = direction === "asc" ? 1 : -1;
 
+  // Client side filter and sort
 
   // 1. FILTER
   // const filteredBookings = bookings?.filter((booking) => (

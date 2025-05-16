@@ -11,8 +11,6 @@ function useCreateCabin() {
       queryClient.invalidateQueries({
         queryKey: ["cabins"],
       });
-      // setShowForm(false);
-      // reset();
     },
     onError: (error) => toast.error(error.message),
   });

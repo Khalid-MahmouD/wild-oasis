@@ -61,6 +61,7 @@ const PaginationButton = styled.button`
 function Pagination({ count }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = !searchParams.get("page") ? 1 : Number(searchParams.get("page"))
+  // actual number of pages
   const pageCount = Math.ceil(count / PAGE_SIZE);
 
   function nextPage() {
@@ -73,7 +74,9 @@ function Pagination({ count }) {
     searchParams.set("page", prevPage);
     setSearchParams(searchParams);
   }
+
   if (pageCount <= 1) return null;
+
   return (
     <StyledPagination>
       <P>

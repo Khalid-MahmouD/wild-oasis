@@ -5,8 +5,7 @@ import Empty from "../../ui/Empty";
 
 import { useBookings } from "./useBookings";
 import Spinner from "../../ui/Spinner";
-import BookingTableOperations from "./BookingTableOperations";
-import { useSearchParams } from "react-router-dom";
+
 import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
@@ -32,7 +31,6 @@ function BookingTable() {
 
   // console.table(sortedBookings);
 
-  console.log(bookings);
   if (isLoading) return <Spinner />;
 
   if (!bookings?.length) return <Empty resourceName="Bookings" />;

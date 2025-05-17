@@ -40,8 +40,6 @@ function CreateCabinForm({ cabinToEdit = {}, onClose }) {
         { ...data, image: image },
         {
           onSuccess: (data) => {
-            // the created data from the mutation function.
-            // console.log(data, 'after creating');
             reset();
             onClose?.();
           },

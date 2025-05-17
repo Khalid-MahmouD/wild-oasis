@@ -68,6 +68,11 @@ const StyledButton = styled.button`
   }
 `;
 
+const AndtdButton = styled(AntdButton)`
+  display: flex;
+  justify-content: flex-start;
+`;
+
 const MenusContext = createContext();
 function Menus({ children }) {
   const [openId, setOpenId] = useState("");
@@ -121,10 +126,10 @@ function Button({ children, icon, onClick }) {
     close();
   }
   return (
-    <li>
-      <AntdButton type="text" block onClick={handleClick}>
+    <li style={{ width: "100%" }}>
+      <AndtdButton type="text" block onClick={handleClick} >
         {icon} <span>{children}</span>
-      </AntdButton>
+      </AndtdButton>
     </li>
   );
 }

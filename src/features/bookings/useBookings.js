@@ -13,8 +13,8 @@ export function useBookings() {
   const filters = !filterValue || filterValue === "all" ? [] :
    [
     {field: 'status', value: filterValue},
-    {field: 'totalPrice', value: 5000, method: 'gte'},
-    {field: 'totalPrice', value: 8000, method: 'lte'}
+    // {field: 'totalPrice', value: 5000, method: 'gte'},
+    // {field: 'totalPrice', value: 8000, method: 'lte'}
   ];
 
   // 2. SORT

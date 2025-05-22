@@ -15,6 +15,7 @@ import AppLayout from "./ui/AppLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import Checkin from "./pages/CheckIn";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,7 +31,11 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          }>
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings />} />
@@ -42,12 +47,12 @@ function App() {
             <Route path="account" element={<Account />} />
           </Route>
           <Route path="login" element={<Login />} />
-          {/* <Route path="*" element={<Navigate replace to="/dashboard" />} /> */}
+
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
       <Toaster
-        position="top-center"
+        position="bottom-center"
         reverseOrder={true}
         gutter={12}
         containerStyle={{ margin: "8px" }}
@@ -60,7 +65,7 @@ function App() {
             color: "var(--color-grey-700)",
           },
           success: {
-            duration: 3000,
+            duration: 5000,
             iconTheme: {
               primary: "green",
               secondary: "white",

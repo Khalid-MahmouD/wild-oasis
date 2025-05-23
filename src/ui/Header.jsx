@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import LogOut from "../features/authentication/LogOut";
+import HeaderMenu from "./HeaderMenu";
+import { Avatar } from "antd";
+import UserAvatar from "../features/authentication/UserAvatar";
 
 const StyledHeader = styled.header`
   background-color: var(--color-gray-0);
@@ -8,7 +11,9 @@ const StyledHeader = styled.header`
 `;
 function Header() {
   return <StyledHeader>
-    <LogOut />
+    {/* <Avatar /> */}
+    <UserAvatar />
+    <HeaderMenu />
   </StyledHeader>;
 }
 

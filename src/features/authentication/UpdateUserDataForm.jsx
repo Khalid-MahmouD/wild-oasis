@@ -1,12 +1,14 @@
-import { useState } from "react";
 
-import Button from "../../ui/Button";
-import FileInput from "../../ui/FileInput";
-import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
-import Input from "../../ui/Input";
+// import Button from "../../ui/Button";
+// import FileInput from "../../ui/FileInput";
+// import Form from "../../ui/Form";
+// import FormRow from "../../ui/FormRow";
+// import Input from "../../ui/Input";
 
 import { useUser } from "./useUser";
+import { Button, Col, Form, Input, Row } from "antd";
+import UploadingImageInput from "../../ui/UploadingImageInput";
+import useUpdateUser from "./useUpdateUser";
 
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
@@ -16,41 +18,76 @@ function UpdateUserDataForm() {
       user_metadata: { fullName: currentFullName },
     },
   } = useUser();
+  const { updateUser, isUpdating } = useUpdateUser();
 
-  const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState(null);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+
+
+
+  function handleSubmit(values) {
+    const { fullName, image } = values;
+    console.log("values", values);
+    if (!fullName) return;
+    const data = {
+      fullName,
+      avatar: image[0]?.originFileObj,
+    };
+    updateUser(data);
+
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormRow label="Email address">
-        <Input value={email} disabled />
-      </FormRow>
-      <FormRow label="Full name">
+    <Form
+      colon={false}
+      labelCol={{ span: 2 }}
+      wrapperCol={{ span: 10 }}
+      labelAlign="left"
+      onFinish={handleSubmit}
+      layout="horizontal"
+      initialValues={{
+        email,
+        fullName: currentFullName,
+      }}
+    >
+      <Form.Item label="Email address" name={"email"}>
         <Input
-          type="text"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          id="fullName"
+          disabled
         />
-      </FormRow>
-      <FormRow label="Avatar image">
-        <FileInput
-          id="avatar"
-          accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
+      </Form.Item>
+      <Form.Item label="Full name" name={"fullName"}>
+        <Input
         />
-      </FormRow>
-      <FormRow>
-        <Button type="reset" variation="secondary">
-          Cancel
-        </Button>
-        <Button>Update account</Button>
-      </FormRow>
-    </Form>
+      </Form.Item>
+      <Form.Item
+        name="image"
+        label="Upload Image"
+        valuePropName="value"
+        getValueFromEvent={(e) => e}
+      >
+        <UploadingImageInput />
+      </Form.Item>
+      <Form.Item
+        label=" "
+        wrapperCol={{ span: 8, offset: 2 }}
+      >
+        <Row gutter={16} justify="end">
+          <Col>
+            <Button htmlType="reset" danger>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={handleSubmit}
+            >
+              Update account
+            </Button>
+          </Col>
+        </Row>
+      </Form.Item>
+    </Form >
   );
 }
 

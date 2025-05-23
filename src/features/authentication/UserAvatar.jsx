@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useUser } from "./useUser";
 
 const StyledUserAvatar = styled.div`
   display: flex;
@@ -19,3 +20,15 @@ const Avatar = styled.img`
   border-radius: 50%;
   outline: 2px solid var(--color-grey-100);
 `;
+
+function UserAvatar() {
+  const { user } = useUser();
+
+  return (
+    <div>
+      {user?.user_metadata ? `Avatar: ${user.user_metadata.name}` : "Avatar"}
+    </div>
+  )
+}
+
+export default UserAvatar

@@ -37,6 +37,7 @@ function DarkModeProvider({ children }) {
             colorLinkHover: 'var(--color-brand-700)',
             colorLinkActive: 'var(--color-brand-800)',
             fontWeightLabel: 500,
+            colorTextPlaceholder: '#bcbbbb',
 
         },
     };

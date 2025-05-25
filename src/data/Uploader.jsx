@@ -8,13 +8,6 @@ import { bookings } from "./data-bookings";
 import { cabins } from "./data-cabins";
 import { guests } from "./data-guests";
 
-// const originalSettings = {
-//   minBookingLength: 3,
-//   maxBookingLength: 30,
-//   maxGuestsPerBooking: 10,
-//   breakfastPrice: 15,
-// };
-
 async function deleteGuests() {
   const { error } = await supabase.from("guests").delete().gt("id", 0);
   if (error) console.log(error.message);
@@ -105,16 +98,12 @@ function Uploader() {
 
   async function uploadAll() {
     setIsLoading(true);
-    // Bookings need to be deleted FIRST
     await deleteBookings();
     await deleteGuests();
     await deleteCabins();
-
-    // Bookings need to be created LAST
     await createGuests();
     await createCabins();
     await createBookings();
-
     setIsLoading(false);
   }
 
@@ -129,16 +118,19 @@ function Uploader() {
     <div
       style={{
         marginTop: "auto",
-        backgroundColor: "#e0e7ff",
+        background: "var(--color-indigo-100)",
         padding: "8px",
-        borderRadius: "5px",
+        borderRadius: "var(--border-radius-md)",
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
         gap: "8px",
+        color: "var(--color-grey-900)",
+        border: "1px solid var(--color-indigo-700)",
+        boxShadow: "var(--shadow-sm)",
       }}
     >
-      <h3>SAMPLE DATA</h3>
+      <h3 style={{ margin: 0, color: "var(--color-grey-900)" }}>SAMPLE DATA</h3>
 
       <Button onClick={uploadAll} disabled={isLoading}>
         Upload ALL

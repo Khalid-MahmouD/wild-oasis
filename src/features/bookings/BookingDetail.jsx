@@ -17,6 +17,7 @@ import { useCheckout } from '../check-in-out/useCheckout';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import useDeleteBooking from './useDeleteBooking';
+import { Empty } from 'antd';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -34,7 +35,7 @@ function BookingDetail() {
   const navigate = useNavigate();
 
   if (isLoading || !booking) return <Spinner />;
-
+  if (!bookingId) return <Empty resourceName="No booking could be found" />;
   return (
     <>
       <Row type="horizontal">

@@ -98,6 +98,8 @@ export async function getStaysTodayActivity() {
     .from('bookings')
     .select('*, guests(fullName, nationality, countryFlag)')
     .or(
+      //filter by two conditions
+      // either the booking is unconfirmed and starts today, or the booking is checked-in and ends today
       `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`,
     )
     .order('created_at');

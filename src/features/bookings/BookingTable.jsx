@@ -30,10 +30,9 @@ function BookingTable() {
   // ))
 
   // console.table(sortedBookings);
+  if (!bookings.length) return <Empty resourceName="Bookings" />;
 
   if (isLoading) return <Spinner />;
-
-  if (!bookings?.length) return <Empty resourceName="Bookings" />;
 
   return (
     <Menus>

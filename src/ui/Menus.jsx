@@ -1,9 +1,9 @@
-import { createContext, useContext, useState } from "react";
-import styled from "styled-components";
-import { Button as AntdButton } from "antd";
-import { HiEllipsisVertical } from "react-icons/hi2";
-import { createPortal } from "react-dom";
-import useOutsideClose from "../hooks/useOutsideClose";
+import { createContext, useContext, useState } from 'react';
+import styled from 'styled-components';
+import { Button as AntdButton } from 'antd';
+import { HiEllipsisVertical } from 'react-icons/hi2';
+import { createPortal } from 'react-dom';
+import useOutsideClose from '../hooks/useOutsideClose';
 const Menu = styled.div`
   display: flex;
   align-items: center;
@@ -75,14 +75,12 @@ const AndtdButton = styled(AntdButton)`
 
 const MenusContext = createContext();
 function Menus({ children }) {
-  const [openId, setOpenId] = useState("");
+  const [openId, setOpenId] = useState('');
   const [position, setPosition] = useState(null);
-  const close = () => setOpenId("");
+  const close = () => setOpenId('');
   const open = setOpenId;
   return (
-    <MenusContext.Provider
-      value={{ openId, close, open, position, setPosition }}
-    >
+    <MenusContext.Provider value={{ openId, close, open, position, setPosition }}>
       {children}
     </MenusContext.Provider>
   );
@@ -91,13 +89,13 @@ function Menus({ children }) {
 function Toggle({ id }) {
   const { openId, close, open, setPosition } = useContext(MenusContext);
   function handleClick(e) {
-    const rect = e.target.closest("button").getBoundingClientRect();
+    const rect = e.target.closest('button').getBoundingClientRect();
 
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
-    openId === "" || openId !== id ? open(id) : close();
+    openId === '' || openId !== id ? open(id) : close();
   }
   return (
     <StyledToggle onClick={handleClick}>
@@ -126,8 +124,8 @@ function Button({ children, icon, onClick }) {
     close();
   }
   return (
-    <li style={{ width: "100%" }}>
-      <AndtdButton type="text" block onClick={handleClick} >
+    <li style={{ width: '100%' }}>
+      <AndtdButton type="text" block onClick={handleClick}>
         {icon} <span>{children}</span>
       </AndtdButton>
     </li>

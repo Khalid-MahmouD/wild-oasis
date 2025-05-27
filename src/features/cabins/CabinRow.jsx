@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import { formatCurrency } from "../../utils/helpers";
-import CreateCabinForm from "./CreateCabinForm";
-import useDeleteCabin from "./useDeleteCabin";
-import { Button, Descriptions } from "antd";
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-import useCreateCabin from "./useCreateCabin";
-import Modal from "../../ui/Modal";
-import ConfirmDelete from "../../ui/ConfirmDelete";
-import Table from "../../ui/Table";
-import Menus from "../../ui/Menus";
+import styled from 'styled-components';
+import { formatCurrency } from '../../utils/helpers';
+import CreateCabinForm from './CreateCabinForm';
+import useDeleteCabin from './useDeleteCabin';
+import { Button, Descriptions } from 'antd';
+import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2';
+import useCreateCabin from './useCreateCabin';
+import Modal from '../../ui/Modal';
+import ConfirmDelete from '../../ui/ConfirmDelete';
+import Table from '../../ui/Table';
+import Menus from '../../ui/Menus';
 
 // const TableRow = styled.div`
 //   display: grid;
@@ -35,16 +35,16 @@ const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  font-family: "Sono";
+  font-family: 'Sono';
 `;
 
 const Price = styled.div`
-  font-family: "Sono";
+  font-family: 'Sono';
   font-weight: 600;
 `;
 
 const Discount = styled.div`
-  font-family: "Sono";
+  font-family: 'Sono';
   font-weight: 500;
   color: var(--color-green-700);
 `;
@@ -57,15 +57,7 @@ function CabinRow({ cabin }) {
   const { isDeleting, deleteCabin } = useDeleteCabin(); //CUSTOM HOOK
   const { isCreating: isDuplicating, createCabin } = useCreateCabin(); //CUSTOM HOOK
 
-  const {
-    id: cabinId,
-    name,
-    maxCapacity,
-    regularPrice,
-    discount,
-    description,
-    image,
-  } = cabin;
+  const { id: cabinId, name, maxCapacity, regularPrice, discount, description, image } = cabin;
 
   function handleDuplicate() {
     createCabin({
@@ -83,11 +75,7 @@ function CabinRow({ cabin }) {
       <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
-      {discount ? (
-        <Discount>{formatCurrency(discount || 0)}</Discount>
-      ) : (
-        <span>&mdash;</span>
-      )}
+      {discount ? <Discount>{formatCurrency(discount || 0)}</Discount> : <span>&mdash;</span>}
       <Action>
         {/* start of MODAL not conditionally rendered it rendered
             but need to hook which window you wanna show

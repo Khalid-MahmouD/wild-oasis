@@ -1,37 +1,31 @@
-import Spinner from "../../ui/Spinner";
-import CabinRow from "./CabinRow";
-import { useCabins } from "./useCabins";
-import Table from "../../ui/Table";
-import Menus from "../../ui/Menus";
-import { useSearchParams } from "react-router-dom";
-import Empty from "../../ui/Empty";
+import Spinner from '../../ui/Spinner';
+import CabinRow from './CabinRow';
+import { useCabins } from './useCabins';
+import Table from '../../ui/Table';
+import Menus from '../../ui/Menus';
+import { useSearchParams } from 'react-router-dom';
+import Empty from '../../ui/Empty';
 
 function CabinTable() {
   const { isLoading, cabins } = useCabins();
   const [searchParams] = useSearchParams();
-  const filterValue = searchParams.get("discount") || "all";
+  const filterValue = searchParams.get('discount') || 'all';
 
-  if (!cabins?.length) return <Empty resourceName='cabins' />;
-
-
+  if (!cabins?.length) return <Empty resourceName="cabins" />;
 
   if (isLoading) return <Spinner />;
 
   // 1. FILTER
   let filteredCabins;
-  if (filterValue == "all") filteredCabins = cabins;
-  if (filterValue == "no-discount")
-    filteredCabins = cabins.filter((cabin) => cabin.discount == 0);
-  if (filterValue == "with-discount")
-    filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
+  if (filterValue == 'all') filteredCabins = cabins;
+  if (filterValue == 'no-discount') filteredCabins = cabins.filter((cabin) => cabin.discount == 0);
+  if (filterValue == 'with-discount') filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
 
   // 2. SORT
-  const sortBy = searchParams.get("sortBy") || "startDate-asc";
-  const [field, direction] = sortBy.split("-");
-  const modifier = direction === "asc" ? 1 : -1;
-  const sortedCabins = filteredCabins.sort(
-    (a, b) => (a[field] - b[field]) * modifier,
-  );
+  const sortBy = searchParams.get('sortBy') || 'startDate-asc';
+  const [field, direction] = sortBy.split('-');
+  const modifier = direction === 'asc' ? 1 : -1;
+  const sortedCabins = filteredCabins.sort((a, b) => (a[field] - b[field]) * modifier);
 
   return (
     <Menus>

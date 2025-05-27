@@ -1,5 +1,5 @@
 {
-  "extends": "react-app",
+  "extends": ["react-app", "plugin:prettier/recommended"],
   "overrides": [
     {
       "files": ["src/**/*.js"],
@@ -8,7 +8,31 @@
       },
       "rules": {
         "no-unused-vars": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "prettier/prettier": [
+          "warn",
+          {
+            "semi": false,
+            "trailingComma": "es5",
+            "printWidth": 120,
+            "tabWidth": 2,
+            "bracketSpacing": true,
+            "arrowParens": "avoid",
+            "endOfLine": "auto"
+          },
+          {
+            "usePrettierrc": false
+          },
+          {
+            "semi": false,
+            "trailingComma": "es5",
+            "printWidth": 120,
+            "tabWidth": 2,
+            "bracketSpacing": true,
+            "arrowParens": "avoid",
+            "endOfLine": "auto"
+          }
+        ]
       }
     }
   ]

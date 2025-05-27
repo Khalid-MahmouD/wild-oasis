@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { useUser } from "./useUser";
+import styled from 'styled-components';
+import { useUser } from './useUser';
 
 const StyledUserAvatar = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ function UserAvatar() {
         <span>{fullName}</span>
       </StyledUserAvatar>
     </div>
-  )
+  );
 }
 
-export default UserAvatar
+export default UserAvatar;

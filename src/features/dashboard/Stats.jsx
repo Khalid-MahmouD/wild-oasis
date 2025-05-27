@@ -1,57 +1,65 @@
-import { HiOutlineBriefcase, HiOutlineChartBar } from "react-icons/hi";
-import Stat from "./Stat";
-import { HiOutlineBanknotes, HiOutlineCalendarDays } from "react-icons/hi2";
-import { formatCurrency } from "../../utils/helpers";
+import { HiOutlineBriefcase, HiOutlineChartBar } from 'react-icons/hi';
+import { HiOutlineBanknotes, HiOutlineCalendarDays } from 'react-icons/hi2';
+import Stat from './Stat';
+import { formatCurrency } from '../../utils/helpers';
 
 function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
-    //1. numer of bookings
-    const numBookings = bookings.length;
+  // 1. Number of bookings
+  const numBookings = bookings.length;
 
-    //2. number of confirmed stays
-    const sales = bookings.reduce(
-        (acc, cur) =>
-            cur.totalPrice + acc
-        , 0);
+  // 2. Total sales
+  const sales = bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
 
-    //3. number of check ins
-    const numCheckIns = confirmedStays.length;
+  // 3. Number of check-ins
+  const numCheckIns = confirmedStays.length;
 
-    //4. occupancy rate
-    // num checked in nights / all available nights
-    // all available nights = numDays * cabinCount
+  // 4. Occupancy rate
+  // num checked-in nights / all available nights
+  // all available nights = numDays * cabinCount
+  const totalNights = confirmedStays.reduce((acc, cur) => acc + (cur.numNights || 0), 0);
+  const occupation =
+    numDays && cabinCount ? Math.round((totalNights / (numDays * cabinCount)) * 100) : 0;
 
-    const occupation = confirmedStays.reduce(
-        (acc, cur) => acc + (cur.numNights || 0),
-        0) / (numDays * cabinCount);
+  const statsData = [
+    {
+      title: 'Bookings',
+      color: 'blue',
+      icon: <HiOutlineBriefcase />,
+      value: numBookings,
+    },
+    {
+      title: 'Sales',
+      color: 'green',
+      icon: <HiOutlineBanknotes />,
+      value: formatCurrency(sales),
+    },
+    {
+      title: 'Check ins',
+      color: 'indigo',
+      icon: <HiOutlineCalendarDays />,
+      value: numCheckIns,
+    },
+    {
+      title: 'Occupancy rate',
+      color: 'yellow',
+      icon: <HiOutlineChartBar />,
+      value: `${occupation}%`,
+    },
+  ];
 
-    return (
-        <>
-            <Stat
-                title={'Bookings'}
-                color={'blue'}
-                icon={<HiOutlineBriefcase />}
-                value={numBookings}
-            />
-            <Stat
-                title={'Sales'}
-                color={'green'}
-                icon={<HiOutlineBanknotes />}
-                value={formatCurrency(sales)}
-            />
-            <Stat
-                title={'Check ins'}
-                color={'indigo'}
-                icon={<HiOutlineCalendarDays />}
-                value={numCheckIns}
-            />
-            <Stat
-                title={'Occupancy rate'}
-                color={'yellow'}
-                icon={<HiOutlineChartBar />}
-                value={Math.round(occupation * 100) + '%'}
-            />
-        </>
-    )
+  return (
+    <>
+      {statsData.map((stat) => (
+        <Stat
+          key={stat.title}
+          title={stat.title}
+          color={stat.color}
+          icon={stat.icon}
+          value={stat.value}
+        />
+      ))}
+    </>
+  );
 }
 
-export default Stats
+export default Stats;

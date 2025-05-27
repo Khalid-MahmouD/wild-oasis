@@ -1,7 +1,7 @@
-import { useUser } from "./useUser";
-import { Button, Col, Divider, Form, Input, Row } from "antd";
-import UploadingImageInput from "../../ui/UploadingImageInput";
-import useUpdateUser from "./useUpdateUser";
+import { useUser } from './useUser';
+import { Button, Col, Divider, Form, Input, Row } from 'antd';
+import UploadingImageInput from '../../ui/UploadingImageInput';
+import useUpdateUser from './useUpdateUser';
 
 function UpdateUserDataForm() {
   const {
@@ -27,19 +27,19 @@ function UpdateUserDataForm() {
         form.setFieldsValue({
           image: undefined,
         });
-      }
+      },
     });
   }
 
   const initialImage = currentAvatar
     ? [
-      {
-        uid: '-1',
-        name: 'avatar.png',
-        status: 'done',
-        url: currentAvatar,
-      },
-    ]
+        {
+          uid: '-1',
+          name: 'avatar.png',
+          status: 'done',
+          url: currentAvatar,
+        },
+      ]
     : [];
 
   return (
@@ -64,8 +64,8 @@ function UpdateUserDataForm() {
         label="Full name"
         name="fullName"
         rules={[
-          { required: true, message: "Full name is required" },
-          { min: 3, message: "Full name must be at least 3 characters" },
+          { required: true, message: 'Full name is required' },
+          { min: 3, message: 'Full name must be at least 3 characters' },
         ]}
       >
         <Input disabled={isUpdating} />
@@ -80,7 +80,7 @@ function UpdateUserDataForm() {
           {
             validator: (_, value) => {
               if (!value || value.length === 0) {
-                return Promise.reject(new Error("Please upload an image"));
+                return Promise.reject(new Error('Please upload an image'));
               }
               return Promise.resolve();
             },
@@ -90,10 +90,7 @@ function UpdateUserDataForm() {
         <UploadingImageInput disabled={isUpdating} />
       </Form.Item>
       <Divider />
-      <Form.Item
-        label=" "
-        wrapperCol={{ span: 12, offset: 4 }}
-      >
+      <Form.Item label=" " wrapperCol={{ span: 12, offset: 4 }}>
         <Row gutter={16} justify="end">
           <Col>
             <Button
@@ -106,18 +103,13 @@ function UpdateUserDataForm() {
             </Button>
           </Col>
           <Col>
-            <Button
-              type="primary"
-              htmlType="submit"
-              loading={isUpdating}
-              disabled={isUpdating}
-            >
+            <Button type="primary" htmlType="submit" loading={isUpdating} disabled={isUpdating}>
               Update account
             </Button>
           </Col>
         </Row>
       </Form.Item>
-    </ Form >
+    </Form>
   );
 }
 

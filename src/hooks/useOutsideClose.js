@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 function useOutsideClose(handler, listenCapturing = true) {
   const ref = useRef();
@@ -7,10 +7,9 @@ function useOutsideClose(handler, listenCapturing = true) {
       function handleClick(e) {
         if (ref.current && !ref.current.contains(e.target)) handler();
       }
-      document.addEventListener("click", handleClick, listenCapturing);
+      document.addEventListener('click', handleClick, listenCapturing);
 
-      return () =>
-        document.removeEventListener("click", handleClick, listenCapturing);
+      return () => document.removeEventListener('click', handleClick, listenCapturing);
     },
     [handler, listenCapturing],
   );

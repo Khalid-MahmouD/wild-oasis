@@ -1,16 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { HiXMark } from "react-icons/hi2";
-import { createPortal } from "react-dom";
-import {
-  cloneElement,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import useOutsideClose from "../hooks/useOutsideClose";
+import { HiXMark } from 'react-icons/hi2';
+import { createPortal } from 'react-dom';
+import { cloneElement, createContext, useContext, useEffect, useRef, useState } from 'react';
+import useOutsideClose from '../hooks/useOutsideClose';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -68,14 +61,12 @@ const ModalContext = createContext();
 
 // 2. parent Component
 function Modal({ children }) {
-  const [openName, setOpenName] = useState("");
-  const close = () => setOpenName("");
+  const [openName, setOpenName] = useState('');
+  const close = () => setOpenName('');
   const open = setOpenName;
 
   return (
-    <ModalContext.Provider value={{ openName, close, open }}>
-      {children}
-    </ModalContext.Provider>
+    <ModalContext.Provider value={{ openName, close, open }}>{children}</ModalContext.Provider>
   );
 }
 // 3. children comp

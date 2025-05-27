@@ -1,5 +1,5 @@
-import { Form, Input, Button, Row, Col, Divider } from "antd";
-import useUpdateUser from "./useUpdateUser";
+import { Form, Input, Button, Row, Col, Divider } from 'antd';
+import useUpdateUser from './useUpdateUser';
 
 function UpdatePasswordForm() {
   const [form] = Form.useForm();
@@ -10,7 +10,7 @@ function UpdatePasswordForm() {
       { password: values.password },
       {
         onSuccess: () => form.resetFields(),
-      }
+      },
     );
   };
 
@@ -27,8 +27,8 @@ function UpdatePasswordForm() {
         label="Password (min 8 characters)"
         name="password"
         rules={[
-          { required: true, message: "This field is required" },
-          { min: 8, message: "Password needs a minimum of 8 characters" },
+          { required: true, message: 'This field is required' },
+          { min: 8, message: 'Password needs a minimum of 8 characters' },
         ]}
         hasFeedback
       >
@@ -38,18 +38,16 @@ function UpdatePasswordForm() {
       <Form.Item
         label="Confirm password"
         name="passwordConfirm"
-        dependencies={["password"]}
+        dependencies={['password']}
         hasFeedback
         rules={[
-          { required: true, message: "This field is required" },
+          { required: true, message: 'This field is required' },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              if (!value || getFieldValue("password") === value) {
+              if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(
-                new Error("Passwords need to match")
-              );
+              return Promise.reject(new Error('Passwords need to match'));
             },
           }),
         ]}
@@ -59,12 +57,16 @@ function UpdatePasswordForm() {
 
       <Divider />
 
-      <Form.Item
-        wrapperCol={{ span: 8, offset: 6 }}
-      >
+      <Form.Item wrapperCol={{ span: 8, offset: 6 }}>
         <Row gutter={16} justify="end">
           <Col>
-            <Button onClick={() => form.resetFields()} danger type="default" htmlType="reset" disabled={isUpdating}>
+            <Button
+              onClick={() => form.resetFields()}
+              danger
+              type="default"
+              htmlType="reset"
+              disabled={isUpdating}
+            >
               Cancel
             </Button>
           </Col>

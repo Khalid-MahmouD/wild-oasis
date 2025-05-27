@@ -1,19 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
-import Input from "../../ui/Input";
-import { useSettings } from "./useSettings";
-import { Spin } from "antd";
-import useUpdateSetting from "./useUpdateSetting";
+import { useQuery } from '@tanstack/react-query';
+import Form from '../../ui/Form';
+import FormRow from '../../ui/FormRow';
+import Input from '../../ui/Input';
+import { useSettings } from './useSettings';
+import { Spin } from 'antd';
+import useUpdateSetting from './useUpdateSetting';
 
 function UpdateSettingsForm() {
   const {
-    settings: {
-      minBookingLength,
-      maxBookingLength,
-      maxGuestsPerBooking,
-      breakfastPrice,
-    } = {},
+    settings: { minBookingLength, maxBookingLength, maxGuestsPerBooking, breakfastPrice } = {},
     isLoading,
   } = useSettings();
   const { isUpdating, updateSetting } = useUpdateSetting();
@@ -38,7 +33,7 @@ function UpdateSettingsForm() {
           id="min-nights"
           disabled={isUpdating}
           defaultValue={minBookingLength}
-          onBlur={(e) => handleUpdate(e, "minBookingLength")}
+          onBlur={(e) => handleUpdate(e, 'minBookingLength')}
         />
       </FormRow>
 
@@ -48,7 +43,7 @@ function UpdateSettingsForm() {
           id="max-nights"
           disabled={isUpdating}
           defaultValue={maxBookingLength}
-          onBlur={(e) => handleUpdate(e, "maxBookingLength")}
+          onBlur={(e) => handleUpdate(e, 'maxBookingLength')}
         />
       </FormRow>
 
@@ -58,7 +53,7 @@ function UpdateSettingsForm() {
           id="max-guests"
           disabled={isUpdating}
           defaultValue={maxGuestsPerBooking}
-          onBlur={(e) => handleUpdate(e, "maxGuestsPerBooking")}
+          onBlur={(e) => handleUpdate(e, 'maxGuestsPerBooking')}
         />
       </FormRow>
 
@@ -68,7 +63,7 @@ function UpdateSettingsForm() {
           disabled={isUpdating}
           id="breakfast-price"
           defaultValue={breakfastPrice}
-          onBlur={(e) => handleUpdate(e, "breakfastPrice")}
+          onBlur={(e) => handleUpdate(e, 'breakfastPrice')}
         />
       </FormRow>
     </Form>

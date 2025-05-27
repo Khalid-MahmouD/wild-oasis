@@ -3,8 +3,8 @@
 // import FormRow from "../../ui/Form";
 // import Input from "../../ui/Input";
 
-import { Button, Card, Form, Input, Row } from "antd";
-import { useSignup } from "./useSignup";
+import { Button, Card, Form, Input, Row } from 'antd';
+import { useSignup } from './useSignup';
 
 // Email regex: /\S+@\S+\.\S+/
 
@@ -13,21 +13,15 @@ function SignupForm() {
   const { signup, isLoading } = useSignup();
 
   const handleSubmit = ({ fullName, email, password }) => {
-    signup(
-      { fullName, email, password },
-      { onSettled: () => form?.resetFields() }
-    );
+    signup({ fullName, email, password }, { onSettled: () => form?.resetFields() });
   };
   const handleSubmitFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
   };
   // Hook form.
 
   return (
-    <Card
-      style={{ width: "90%" }}
-    >
-
+    <Card style={{ width: '90%' }}>
       <Form
         layout="vertical"
         name="signup"
@@ -39,19 +33,19 @@ function SignupForm() {
       >
         <Form.Item
           label="Full name"
-          name={"fullName"}
+          name={'fullName'}
           rules={[
             {
               required: true,
-              message: "Please input your full name!",
+              message: 'Please input your full name!',
             },
             {
-              type: "string",
-              message: "The input is not valid full name!",
+              type: 'string',
+              message: 'The input is not valid full name!',
             },
             {
               min: 3,
-              message: "Full name must be at least 3 characters",
+              message: 'Full name must be at least 3 characters',
             },
           ]}
         >
@@ -66,36 +60,31 @@ function SignupForm() {
         </Form.Item>
         <Form.Item
           label="Email address"
-          name={"email"}
+          name={'email'}
           rules={[
             {
               required: true,
-              message: "Please input your email address!",
+              message: 'Please input your email address!',
             },
             {
               pattern: /\S+@\S+\.\S+/,
-              message: "The input is not valid E-mail!",
-            }
+              message: 'The input is not valid E-mail!',
+            },
           ]}
         >
-          <Input
-            type="email"
-            id="email"
-            placeholder="example@example.com"
-            disabled={isLoading}
-          />
+          <Input type="email" id="email" placeholder="example@example.com" disabled={isLoading} />
         </Form.Item>
         <Form.Item
           label="Password (min 8 characters)"
-          name={"password"}
+          name={'password'}
           rules={[
             {
               required: true,
-              message: "Please input your password!",
+              message: 'Please input your password!',
             },
             {
               min: 8,
-              message: "Password must be at least 8 characters",
+              message: 'Password must be at least 8 characters',
             },
           ]}
           hasFeedback
@@ -109,23 +98,23 @@ function SignupForm() {
         </Form.Item>
         <Form.Item
           label="Repeat password"
-          name={"passwordConfirm"}
-          dependencies={["password"]}
+          name={'passwordConfirm'}
+          dependencies={['password']}
           rules={[
             {
               required: true,
-              message: "Please repeat your password!",
+              message: 'Please repeat your password!',
             },
             {
               min: 8,
-              message: "Password must be at least 8 characters",
+              message: 'Password must be at least 8 characters',
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
+                if (!value || getFieldValue('password') === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error("The two passwords do not match!"));
+                return Promise.reject(new Error('The two passwords do not match!'));
               },
             }),
           ]}
@@ -139,29 +128,17 @@ function SignupForm() {
           />
         </Form.Item>
         <Form.Item>
-          <Row
-            justify="end"
-            align="middle"
-            style={{ gap: 16 }}
-            gutter={[16, 16]}
-            wrap={false}
-          >
+          <Row justify="end" align="middle" style={{ gap: 16 }} gutter={[16, 16]} wrap={false}>
             <Button htmlType="reset" disabled={isLoading}>
               Cancel
             </Button>
-            <Button
-              type="primary"
-              htmlType="submit"
-              loading={isLoading}
-              disabled={isLoading}
-            >
+            <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
               Create new user
             </Button>
           </Row>
         </Form.Item>
       </Form>
     </Card>
-
   );
 }
 
